@@ -13,7 +13,11 @@ const handleaddTask=()=>{
   }
   setTasks((prev)=>[...prev,newTask])
 }
-console.log(tasks);
+
+const handleDeleteTask=(id)=>{
+setTasks(tasks.filter((item)=>item.id !== id));
+
+}
 
   
   return (
@@ -30,7 +34,7 @@ console.log(tasks);
         
            {
             tasks.map((item)=>(<div key={item.id}>
-              <h3>{item.taskname}</h3>
+              <h3>{item.taskname}</h3><button onClick={()=>handleDeleteTask(item.id)}>Delete</button>
             </div>))
            }
 
