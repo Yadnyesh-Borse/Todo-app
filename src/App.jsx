@@ -24,6 +24,13 @@ setTasks(tasks.filter((item)=>item.id !== id));
 
 }
 
+const handleCompleted=(id)=>{
+  setTasks((prev)=>prev.map((item)=>item.id ===id ?{
+ ...item,completed:!item.completed
+  }:item))
+}
+console.log(tasks);
+
   
   return (
     <div>
@@ -39,7 +46,9 @@ setTasks(tasks.filter((item)=>item.id !== id));
         
            {
             tasks.map((item)=>(<div key={item.id}>
-              <h3>{item.taskname}</h3>
+            <input type="checkbox" checked={item.completed} 
+            onChange={()=>handleCompleted(item.id)} />  
+            <h3>{item.taskname}</h3>
               <button onClick={()=>handleDeleteTask(item.id)}>Delete</button>
               {
                 editID ===item.id && <input type="text" 
