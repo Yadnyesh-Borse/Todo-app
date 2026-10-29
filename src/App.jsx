@@ -29,7 +29,12 @@ const handleCompleted=(id)=>{
  ...item,completed:!item.completed
   }:item))
 }
-console.log(tasks);
+
+const handleSave=(id)=>{
+  setTasks((prev)=>prev.map((item)=>item.id === id ?{
+  ...item,taskname:editTask,
+  }:item))
+}
 
   
   return (
@@ -57,14 +62,15 @@ console.log(tasks);
                      />
               }
               <button onClick={()=>{setEditID(item.id);setEditTask(item.taskname)}}>Edit</button>
+              <button onClick={()=>handleSave(item.id)}>Save</button>
             </div>))
            }
 
       </div>
       <div>
-        <h2>pending</h2>
-        <h2>Completed</h2>
-        <h2>Total</h2>
+        <h2>pending :{tasks.filter((item)=>!item.completed).length}</h2>
+        <h2>Completed:{tasks.filter((item)=>item.completed).length}</h2>
+        <h2>Total:{tasks.length}</h2>
       </div>
       
     </div>
