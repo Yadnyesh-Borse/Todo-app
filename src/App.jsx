@@ -4,6 +4,10 @@ import { useState } from "react"
 function App() {
   const[tasks,setTasks]=useState([]);
   const[task,setTask]=useState("");
+  const[editID,setEditID]=useState(null);
+  const[editTask,setEditTask]=useState("");
+
+
    
 const handleaddTask=()=>{
   const newTask={
@@ -12,6 +16,7 @@ const handleaddTask=()=>{
     completed:false
   }
   setTasks((prev)=>[...prev,newTask])
+  setTask("")
 }
 
 const handleDeleteTask=(id)=>{
@@ -34,7 +39,15 @@ setTasks(tasks.filter((item)=>item.id !== id));
         
            {
             tasks.map((item)=>(<div key={item.id}>
-              <h3>{item.taskname}</h3><button onClick={()=>handleDeleteTask(item.id)}>Delete</button>
+              <h3>{item.taskname}</h3>
+              <button onClick={()=>handleDeleteTask(item.id)}>Delete</button>
+              {
+                editID ===item.id && <input type="text" 
+                     value={editTask} 
+                     onChange={(e)=>setEditTask(e.target.value)}
+                     />
+              }
+              <button onClick={()=>{setEditID(item.id);setEditTask(item.taskname)}}>Edit</button>
             </div>))
            }
 
